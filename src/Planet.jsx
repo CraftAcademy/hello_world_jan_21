@@ -1,12 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-const Planet = (props) => {
-  // debugger
+const Planet = () => {
+  const newGreeting = useSelector((state) => state.newGreeting);
+  
   return (
     <>
-      <h1>
-        {props.planet} it is {props.weather} today
-      </h1>
+      <h1>{newGreeting} World</h1>
     </>
   );
 };

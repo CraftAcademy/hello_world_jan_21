@@ -1,32 +1,27 @@
-import React, { Component } from 'react'
-import Planet from './Planet'
+import React, { useState } from "react";
+import Planet from "./Planet";
+import { useSelector } from "react-redux";
+import { onChangeHandler } from "./greetingHelper";
 
-class App extends Component {
-  state = {
-    greeting: 'Hello',
-    planet: 'World',
-    weather: 'Sunny'
-  }
+const App = () => {
+  const [greeting, setGreeting] = useState("Hello");
 
-  onClickHandler = () => {
-    let newGreeting = this.state.greeting === 'Hello' ? 'Good afternoon' : 'Hello'
-    this.setState({ greeting: newGreeting });
-  }
+  const { message, receiver, sender } = useSelector((state) => state);
 
-  onChangeHandler = (event) => {
-    this.setState({ weather: event.target.value });
-  }
+  const onClickHandler = () => {
+    let newGreeting = greeting === "Hello" ? "Good afternoon" : "Hello";
+    setGreeting(newGreeting);
+  };
 
-  render() {
-    const {greeting} = this.state
-    return (
-      <div>
-        {greeting} <Planet planet={this.state.planet} weather={this.state.weather}/> from class component
-        <button onClick={this.onClickHandler}>Change greeting</button>
-        <input type="text" onChange={this.onChangeHandler}/>
-      </div>
-    )
-  }
-}
+  return (
+    <div>
+      {greeting} <Planet /> from class component
+      <button onClick={onClickHandler}>Change greeting</button>
+      <input type="text" onChange={(event) => onChangeHandler(event)} />
+      <br />
+      {message} {receiver} from {sender}
+    </div>
+  );
+};
 
-export default App
+export default App;
